@@ -23,7 +23,6 @@ export default function AdminLoginForm({ signedInAs, notAdmin }: { signedInAs: s
       <div><label className="label" htmlFor="password">Password</label><input id="password" name="password" type="password" required autoComplete="current-password" className="input" /></div>
       {err && <p className="text-sm text-redpen">{err}</p>}
       <button className="btn-primary w-full" disabled={busy}>{busy ? "Signing in…" : "Sign in to admin"}</button>
-      <p className="text-center text-xs text-muted">No admin account yet? Sign up on the main site with your admin email. It's recognised automatically.</p>
     </form>
   );
 }

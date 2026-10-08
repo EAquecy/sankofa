@@ -19,5 +19,5 @@ Virtual WASSCE remedial classes for Ghana. Students follow screened teachers, jo
 | `PREDICTION_CREDIT_COST` | Optional, credits per generated paper (default 1) |
 
 ## Roles
-- Sign up as **student** or **teacher**. Emails in `public.admin_allowlist` become **admin** on sign-up.
+- Sign up as **student** or **teacher**. There is a single admin account (egu.quecy@gmail.com); no other account can become admin.
 - Teachers are invisible to students until an admin approves their screening.
