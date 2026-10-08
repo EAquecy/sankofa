@@ -29,8 +29,8 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
   const Field = ({ k, v }: { k: string; v: any }) => <div><dt className="text-sm text-muted">{k}</dt><dd className="font-semibold">{v || <span className="font-normal text-redpen">Missing</span>}</dd></div>;
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-10">
-      <Link href="/admin" className="text-sm text-muted hover:underline">Back to queue</Link>
+    <div className="mx-auto max-w-5xl px-5 py-8">
+      <Link href="/admin/screening" className="text-sm text-muted hover:underline">Back to screening</Link>
       <div className="mt-2 flex flex-wrap items-center gap-3">
         <h1 className="h-page">{p.full_name}</h1><StatusPill s={t.status} />
         <Link href={`/teachers/${id}`} className="ml-auto btn-ghost btn-sm">Preview public profile</Link>

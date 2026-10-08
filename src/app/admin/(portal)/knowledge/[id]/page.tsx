@@ -12,7 +12,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
     supabase.from("examiner_findings").select("*").eq("document_id", id).order("created_at"),
   ]);
   return (
-    <div className="mx-auto max-w-4xl px-4 py-10">
+    <div className="mx-auto max-w-4xl px-5 py-8">
       <Link href="/admin/knowledge" className="text-sm text-muted hover:underline">Back to knowledge base</Link>
       <h1 className="h-page mt-2">{d.subjects?.name} {d.year} {d.sitting}{d.paper ? ` · Paper ${d.paper}` : ""}</h1>
       <p className="mt-1 text-muted">{d.kind === "past_paper" ? "Past paper" : "Chief examiner report"} · {d.title}</p>

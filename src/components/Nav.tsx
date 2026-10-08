@@ -1,9 +1,12 @@
 import Link from "next/link";
+import { headers } from "next/headers";
 import { getMe, createClient } from "@/lib/supabase/server";
 import NotificationBell from "./NotificationBell";
 import { initials } from "@/lib/utils";
 
 export default async function Nav() {
+  const path = (await headers()).get("x-pathname") ?? "";
+  if (path.startsWith("/admin")) return null;
   const me = await getMe();
   let unread = 0;
   if (me) {
@@ -16,7 +19,7 @@ export default async function Nav() {
     : me.role === "teacher" ? [
         { href: "/studio", label: "Studio" }, { href: "/studio/timetable", label: "Timetable" },
         { href: "/studio/bookings", label: "Bookings" }, { href: "/predict", label: "Predictor" }, { href: "/studio/profile", label: "Profile" }, { href: "/studio/screening", label: "Screening" }]
-    : me.role === "admin" ? [{ href: "/admin", label: "Screening queue" }, { href: "/admin/knowledge", label: "Predictor knowledge" }, { href: "/teachers", label: "Public directory" }]
+    : me.role === "admin" ? [{ href: "/admin", label: "Admin portal" }, { href: "/teachers", label: "Public directory" }]
     : [{ href: "/student", label: "My classes" }, { href: "/teachers", label: "Find a teacher" }, { href: "/predict", label: "Predictor" }, { href: "/student/bookings", label: "Bookings" }, { href: "/join", label: "Join with code" }];
 
   return (

@@ -15,7 +15,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
   ]);
   const count = (s: string) => (all ?? []).filter((r) => r.status === s).length;
   return (
-    <div className="mx-auto max-w-5xl px-4 py-10">
+    <div className="mx-auto max-w-5xl px-5 py-8">
       <h1 className="h-page">Teacher screening</h1>
       <p className="mt-1 text-muted">Review documents, call references and approve teachers before they go live.</p>
       <nav className="mt-6 flex gap-1 border-b border-line">

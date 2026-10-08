@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { timeAgo } from "@/lib/utils";
-import { UploadSource, ProcessButton, GrantCredits } from "./Client";
+import { UploadSource, ProcessButton } from "./Client";
 
 export default async function Page() {
   const supabase = await createClient();
@@ -16,7 +16,7 @@ export default async function Page() {
     return { ...s, papers: papers.length, reports: d.filter((x) => x.kind === "examiner_report").length, questions: papers.reduce((a, p) => a + p.items_count, 0), years };
   });
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10">
+    <div className="mx-auto max-w-6xl px-5 py-8">
       <h1 className="h-page">Predictor knowledge base</h1>
       <p className="mt-1 max-w-2xl text-muted">Feed the agent WASSCE past papers and chief examiner reports. It extracts every question and remark, tags them by syllabus topic, and uses the patterns to predict future papers.</p>
 
@@ -63,7 +63,6 @@ export default async function Page() {
         </div>
         <aside className="space-y-8">
           <UploadSource subjects={subjects ?? []} />
-          <GrantCredits />
         </aside>
       </div>
     </div>
