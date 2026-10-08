@@ -72,10 +72,8 @@ export default async function Nav() {
 
 function Logo() {
   return (
-    <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true">
-      <path d="M16 28 C6 20 3 14 6 9 C9 4 15 5 16 10 C17 5 23 4 26 9 C29 14 26 20 16 28 Z" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinejoin="round" />
-      <path d="M10 13 C10 10 13 10 13.5 12.5" fill="none" stroke="#F2B705" strokeWidth="2.6" strokeLinecap="round" />
-      <path d="M22 13 C22 10 19 10 18.5 12.5" fill="none" stroke="#F2B705" strokeWidth="2.6" strokeLinecap="round" />
+    <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true">
+      <rect width="32" height="32" rx="8" fill="#1b2a6b"/><path d="M21.6 10 C20.2 8.2 18.3 7.4 16 7.4 C12.7 7.4 10.4 9.1 10.4 11.8 C10.4 17.2 21.8 14.8 21.8 20.3 C21.8 23.2 19.3 24.8 16 24.8 C13.4 24.8 11.3 23.8 10 22" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round"/><path d="M8.6 18.4 L9.8 22.2 L13.6 21.2" fill="none" stroke="#F2B705" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   );
 }
