@@ -17,7 +17,7 @@ export default function AdminSidebar({ name, email }: { name: string; email: str
   return (
     <aside className="sticky top-0 z-30 border-b border-white/10 bg-ink text-white lg:h-screen lg:border-b-0 lg:border-r">
       <div className="flex items-center justify-between px-5 py-4 lg:block lg:py-6">
-        <Link href="/admin" className="block font-display text-xl font-extrabold">Sankofa <span className="font-sans text-sm font-normal text-white/60">Admin</span></Link>
+        <Link href="/admin" className="flex items-center gap-2 font-display text-xl font-extrabold"><img src="/sankofa-mark.png" alt="" width={30} height={30} className="h-[30px] w-[30px] rounded-full ring-2 ring-white/80" />Sankofa <span className="font-sans text-sm font-normal text-white/60">Admin</span></Link>
         <form action="/auth/signout" method="post" className="lg:hidden"><button className="text-sm text-white/70 underline">Sign out</button></form>
       </div>
       <nav className="flex gap-1 overflow-x-auto px-3 pb-3 lg:flex-col lg:overflow-visible lg:pb-0" aria-label="Admin">
