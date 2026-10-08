@@ -83,10 +83,10 @@ export default async function Home() {
           </div>
           <div className="ruled rounded-sm border border-[#c9d4ee] py-4 pl-20 pr-6 leading-8 shadow-[0_18px_40px_-22px_rgba(27,42,107,.4)]">
             <div className="font-display font-bold text-ink">Logarithms · Core Mathematics</div>
-            <div className="text-muted">Examined 2004, 2008, 2012, 2016, 2020</div>
+            <div className="text-muted">Examined 2006, 2010, 2014, 2018, 2022</div>
             <div className="text-muted">Repeats about every 4 years</div>
             <div className="text-muted">Examiners: candidates mixed up log laws</div>
-            <div className="font-hand text-2xl text-redpen">Due in 2024. Revise it!</div>
+            <div className="font-hand text-2xl text-redpen">Due in 2026. Revise it!</div>
           </div>
         </div>
       </section>
