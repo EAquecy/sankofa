@@ -1,5 +1,7 @@
 # Sankofa
 
+Live: https://sankofa-gray.vercel.app
+
 Virtual WASSCE remedial classes for Ghana. Students follow screened teachers, join virtual classroom sessions, ask public questions, submit classwork and book private or group extra hours. Teachers run a studio of classrooms, lesson paths, timetables and bookings. Admins screen teachers (certificate, CV, references, Ghana Card, digital address) and feed the WASSCE predictor agent with past papers and chief examiner reports.
 
 ## Stack
