@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import PasswordInput from "@/components/PasswordInput";
 
 export default function SignupForm({ initialRole }: { initialRole: "student" | "teacher" }) {
   const [role, setRole] = useState(initialRole);
@@ -50,7 +51,7 @@ export default function SignupForm({ initialRole }: { initialRole: "student" | "
       )}
       <div><label className="label" htmlFor="full_name">Full name</label><input id="full_name" name="full_name" required minLength={3} className="input" placeholder="e.g. Ama Owusu" autoComplete="name" /></div>
       <div><label className="label" htmlFor="email">Email</label><input id="email" name="email" type="email" required className="input" autoComplete="email" /></div>
-      <div><label className="label" htmlFor="password">Password</label><input id="password" name="password" type="password" required minLength={8} className="input" autoComplete="new-password" /><p className="hint">At least 8 characters.</p></div>
+      <div><label className="label" htmlFor="password">Password</label><PasswordInput id="password" name="password"  required minLength={8}  autoComplete="new-password" /><p className="hint">At least 8 characters.</p></div>
       {err && <p className="text-sm text-redpen">{err}</p>}
       <button className="btn-primary w-full" disabled={busy}>{busy ? "Creating account…" : role === "teacher" ? "Create teacher account" : "Create student account"}</button>
       <p className="text-center text-sm text-muted">Already have an account? <Link href="/login" className="font-semibold text-ink underline">Log in</Link></p>

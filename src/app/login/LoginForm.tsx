@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import PasswordInput from "@/components/PasswordInput";
 
 export default function LoginForm({ next }: { next: string }) {
   const [err, setErr] = useState<string | null>(null);
@@ -17,7 +18,7 @@ export default function LoginForm({ next }: { next: string }) {
   return (
     <form onSubmit={onSubmit} className="panel mt-8 space-y-4 p-6">
       <div><label className="label" htmlFor="email">Email</label><input id="email" name="email" type="email" required className="input" autoComplete="email" /></div>
-      <div><label className="label" htmlFor="password">Password</label><input id="password" name="password" type="password" required className="input" autoComplete="current-password" /></div>
+      <div><label className="label" htmlFor="password">Password</label><PasswordInput id="password" name="password"  required  autoComplete="current-password" /></div>
       {err && <p className="text-sm text-redpen">{err}</p>}
       <button className="btn-primary w-full" disabled={busy}>{busy ? "Logging in…" : "Log in"}</button>
       <p className="text-center text-sm text-muted">New here? <Link href="/signup" className="font-semibold text-ink underline">Create an account</Link></p>
