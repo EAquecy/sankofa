@@ -12,7 +12,13 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
   const me = await getMe();
   const { data: t } = await supabase.from("teacher_profiles")
     .select("*, profiles(full_name, avatar_url), teacher_subjects(id, demo_video_path, subjects(id, name))").eq("id", id).maybeSingle();
-  if (!t) notFound();
+  if (!t) return (
+    <div className="mx-auto max-w-xl px-4 py-20">
+      <h1 className="h-page">This teacher isn't available</h1>
+      <p className="mt-3 text-muted">Their profile is still being screened by the Sankofa team, or it's no longer active. Teachers appear here once they're approved.</p>
+      <Link href="/teachers" className="btn-primary mt-6">Browse approved teachers</Link>
+    </div>
+  );
 
   const [{ data: classrooms }, { data: slots }, { data: upcoming }, { data: counts }] = await Promise.all([
     supabase.from("classrooms").select("id, title, description, code, subjects(name)").eq("teacher_id", id).eq("is_archived", false).order("created_at"),
