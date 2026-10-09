@@ -28,15 +28,7 @@ export function ProfileForm({ tp, p }: any) {
       e.preventDefault(); const f = new FormData(e.currentTarget);
       run(async () => {
         const s = sb(); const { data: { user } } = await s.auth.getUser();
-        const file = f.get("avatar") as File;
-        let avatar_url = p.avatar_url;
-        if (file?.size) {
-          const path = `${user!.id}/avatar-${Date.now()}.${file.name.split(".").pop()}`;
-          const up = await s.storage.from("avatars").upload(path, file, { upsert: true });
-          if (up.error) return up;
-          avatar_url = s.storage.from("avatars").getPublicUrl(path).data.publicUrl;
-        }
-        const a = await s.from("profiles").update({ full_name: String(f.get("full_name")), avatar_url }).eq("id", user!.id);
+        const a = await s.from("profiles").update({ full_name: String(f.get("full_name")) }).eq("id", user!.id);
         if (a.error) return a;
         return s.from("teacher_profiles").update({
           headline: String(f.get("headline")), bio: String(f.get("bio")), years_experience: Number(f.get("years") || 0),
@@ -50,10 +42,7 @@ export function ProfileForm({ tp, p }: any) {
     }}>
       <section className="panel space-y-4 p-6">
         <h2 className="h-sec">About you</h2>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div><label className="label">Full name</label><input name="full_name" defaultValue={p.full_name} required className="input" /></div>
-          <div><label className="label">Profile photo</label><input name="avatar" type="file" accept="image/jpeg,image/png,image/webp" className="input" /></div>
-        </div>
+        <div className="max-w-md"><label className="label">Full name</label><input name="full_name" defaultValue={p.full_name} required className="input" /></div>
         <div><label className="label">Headline</label><input name="headline" defaultValue={tp.headline} maxLength={90} className="input" placeholder="e.g. Elective maths made simple. 8 years at Prempeh College." /></div>
         <div><label className="label">Bio</label><textarea name="bio" defaultValue={tp.bio} rows={5} className="input" placeholder="How you teach, what results your students have had, and who you work best with." /></div>
         <div className="max-w-[12rem]"><label className="label">Years of teaching</label><input name="years" type="number" min={0} max={50} defaultValue={tp.years_experience} className="input" /></div>

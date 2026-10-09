@@ -32,6 +32,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
     <div className="mx-auto max-w-5xl px-5 py-8">
       <Link href="/admin/screening" className="text-sm text-muted hover:underline">Back to screening</Link>
       <div className="mt-2 flex flex-wrap items-center gap-3">
+        {p.avatar_url ? <img src={p.avatar_url} alt="" className="h-16 w-16 rounded-full object-cover" /> : <span className="flex h-16 w-16 items-center justify-center rounded-full bg-line text-xs text-muted">No photo</span>}
         <h1 className="h-page">{p.full_name}</h1><StatusPill s={t.status} />
         <Link href={`/teachers/${id}`} className="ml-auto btn-ghost btn-sm">Preview public profile</Link>
       </div>

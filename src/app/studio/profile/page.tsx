@@ -1,6 +1,7 @@
 import { createClient, getMe } from "@/lib/supabase/server";
 import { publicUrl } from "@/lib/utils";
 import { ProfileForm, SubjectsManager } from "./Client";
+import AvatarUploader from "@/components/AvatarUploader";
 
 export default async function Page() {
   const me = (await getMe())!;
@@ -16,6 +17,7 @@ export default async function Page() {
       <h1 className="h-page">Teacher profile</h1>
       <p className="mt-1 text-muted">This is what students see when they find you. We use it to advertise you across Sankofa.</p>
       <div className="mt-8 space-y-10">
+        <section className="panel p-6"><AvatarUploader userId={me.id} name={p?.full_name ?? me.full_name} url={p?.avatar_url ?? null} /></section>
         <ProfileForm tp={tp} p={p} />
         <SubjectsManager all={subjects ?? []} mine={(mine ?? []).map((m: any) => ({ ...m, url: publicUrl("demo-videos", m.demo_video_path) }))} />
       </div>

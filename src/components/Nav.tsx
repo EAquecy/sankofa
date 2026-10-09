@@ -38,7 +38,7 @@ export default async function Nav() {
             <>
               <NotificationBell userId={me.id} initial={unread} />
               <details className="relative">
-                <summary className="flex h-9 w-9 cursor-pointer list-none items-center justify-center rounded-full bg-ink text-sm font-bold text-white">{initials(me.full_name)}</summary>
+                <summary className="flex h-9 w-9 cursor-pointer list-none items-center justify-center overflow-hidden rounded-full bg-ink text-sm font-bold text-white" aria-label="Account menu">{me.avatar_url ? <img src={me.avatar_url} alt="" className="h-full w-full object-cover" /> : initials(me.full_name)}</summary>
                 <div className="absolute right-0 mt-2 w-60 rounded-lg border border-line bg-white p-2 shadow-lg">
                   <div className="px-2 py-1.5">
                     <div className="font-semibold">{me.full_name}</div>

@@ -8,12 +8,13 @@ const sb = () => createClient();
 const GPS = /^[A-Z]{2}-\d{3,4}-\d{4}$/i;
 const CARD = /^GHA-\d{9}-\d$/i;
 
-export default function ScreeningForm({ sc, status, profileOk, subjects }: { sc: any; status: string; profileOk: boolean; subjects: { name: string; ok: boolean }[] }) {
+export default function ScreeningForm({ sc, status, profileOk, photoOk, subjects }: { sc: any; status: string; profileOk: boolean; photoOk: boolean; subjects: { name: string; ok: boolean }[] }) {
   const { busy, error, run, setError } = useMutate();
   const [saved, setSaved] = useState(false);
   const locked = status === "pending" || status === "approved";
 
   const checks = [
+    { ok: photoOk, label: "Profile photo", href: "/studio/profile" },
     { ok: profileOk, label: "Headline and bio on your profile", href: "/studio/profile" },
     { ok: subjects.length > 0 && subjects.every((s) => s.ok), label: subjects.length ? `Sample teaching video for every subject (${subjects.filter((s) => s.ok).length}/${subjects.length})` : "At least one subject with a sample teaching video", href: "/studio/profile#subjects" },
     { ok: !!sc.certificate_path, label: "Teacher training certificate" },
