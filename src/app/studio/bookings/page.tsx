@@ -7,7 +7,7 @@ export default async function Page() {
   const me = (await getMe())!;
   const supabase = await createClient();
   const { data } = await supabase.from("bookings")
-    .select("*, classrooms(title, subjects(name)), profiles!bookings_requested_by_fkey(full_name), booking_participants(student_id, profiles(full_name))")
+    .select("*, classrooms(title, subjects(name)), profiles!bookings_requested_by_fkey(full_name), booking_participants(student_id, profiles!booking_participants_student_id_fkey(full_name))")
     .eq("teacher_id", me.id).order("starts_at", { ascending: true });
   const now = Date.now();
   const pending = (data ?? []).filter((b) => b.status === "pending" && new Date(b.ends_at).getTime() > now);

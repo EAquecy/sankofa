@@ -11,7 +11,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
   const supabase = await createClient();
   const me = await getMe();
   const { data: t } = await supabase.from("teacher_profiles")
-    .select("*, profiles(full_name, avatar_url), teacher_subjects(id, demo_video_path, subjects(id, name))").eq("id", id).maybeSingle();
+    .select("*, profiles!teacher_profiles_id_fkey(full_name, avatar_url), teacher_subjects(id, demo_video_path, subjects(id, name))").eq("id", id).maybeSingle();
   if (!t) return (
     <div className="mx-auto max-w-xl px-4 py-20">
       <h1 className="h-page">This teacher isn't available</h1>

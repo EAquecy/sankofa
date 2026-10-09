@@ -6,7 +6,7 @@ export default async function Page() {
   const supabase = await createClient();
   const [{ data: ledger }, { data: preds }] = await Promise.all([
     supabase.from("ai_credit_ledger").select("*, profiles!ai_credit_ledger_user_id_fkey(full_name)").order("created_at", { ascending: false }).limit(100),
-    supabase.from("predictions").select("id, target_year, kind, created_at, subjects(name), profiles(full_name, role)").order("created_at", { ascending: false }).limit(50),
+    supabase.from("predictions").select("id, target_year, kind, created_at, subjects(name), profiles!predictions_owner_id_fkey(full_name, role)").order("created_at", { ascending: false }).limit(50),
   ]);
   return (
     <div className="mx-auto max-w-6xl px-5 py-8">

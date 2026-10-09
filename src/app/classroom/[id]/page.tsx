@@ -16,7 +16,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   if (!me) redirect("/login");
   const supabase = await createClient();
   const { data: c } = await supabase.from("classrooms")
-    .select("*, subjects(name), teacher_profiles(id, status, profiles(full_name))").eq("id", id).maybeSingle();
+    .select("*, subjects(name), teacher_profiles(id, status, profiles!teacher_profiles_id_fkey(full_name))").eq("id", id).maybeSingle();
   if (!c) notFound();
   const isOwner = c.teacher_id === me.id;
   const isAdmin = me.role === "admin";
@@ -126,7 +126,7 @@ function Path({ id, isOwner, topics }: any) {
 async function Discussion({ id, me, isOwner, topics }: any) {
   const supabase = await createClient();
   const { data: qs } = await supabase.from("questions")
-    .select("*, profiles(full_name), topics(title), answers(*, profiles(full_name))").eq("classroom_id", id)
+    .select("*, profiles!questions_author_id_fkey(full_name), topics(title), answers(*, profiles!answers_author_id_fkey(full_name))").eq("classroom_id", id)
     .order("created_at", { ascending: false }).limit(60);
   return (
     <div className="mx-auto max-w-3xl">
@@ -170,7 +170,7 @@ async function Discussion({ id, me, isOwner, topics }: any) {
 
 async function Classwork({ id, me, isOwner, topics }: any) {
   const supabase = await createClient();
-  const { data: as } = await supabase.from("assignments").select("*, topics(title), submissions(*, profiles(full_name))").eq("classroom_id", id).order("created_at", { ascending: false });
+  const { data: as } = await supabase.from("assignments").select("*, topics(title), submissions(*, profiles!submissions_student_id_fkey(full_name))").eq("classroom_id", id).order("created_at", { ascending: false });
   const paths = (as ?? []).flatMap((a: any) => [a.attachment_path, ...a.submissions.map((s: any) => s.attachment_path)]).filter(Boolean);
   const urls: Record<string, string> = {};
   if (paths.length) {
@@ -229,7 +229,7 @@ async function Classwork({ id, me, isOwner, topics }: any) {
 
 async function Students({ id }: { id: string }) {
   const supabase = await createClient();
-  const { data } = await supabase.from("enrollments").select("*, profiles(full_name, school, exam_year)").eq("classroom_id", id).order("created_at");
+  const { data } = await supabase.from("enrollments").select("*, profiles!enrollments_student_id_fkey(full_name, school, exam_year)").eq("classroom_id", id).order("created_at");
   const active = (data ?? []).filter((e) => e.status === "active");
   const removed = (data ?? []).filter((e) => e.status === "removed");
   return (

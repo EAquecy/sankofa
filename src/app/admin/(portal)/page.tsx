@@ -6,7 +6,7 @@ export default async function Page() {
   const supabase = await createClient();
   const [{ data: s }, { data: pending }, { data: recent }] = await Promise.all([
     supabase.rpc("admin_stats"),
-    supabase.from("teacher_profiles").select("id, profiles(full_name), teacher_subjects(subjects(name)), teacher_screening(submitted_at)").eq("status", "pending").limit(6),
+    supabase.from("teacher_profiles").select("id, profiles!teacher_profiles_id_fkey(full_name), teacher_subjects(subjects(name)), teacher_screening(submitted_at)").eq("status", "pending").limit(6),
     supabase.rpc("admin_list_users", { p_role: null, p_search: null }),
   ]);
   const st: any = s ?? {};

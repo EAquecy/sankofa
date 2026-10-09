@@ -8,7 +8,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
   const [{ data: subjects }, { data: teachers }] = await Promise.all([
     supabase.from("subjects").select("name, slug").order("id"),
     supabase.from("teacher_profiles")
-      .select("id, headline, years_experience, private_rate, profiles(full_name, avatar_url), teacher_subjects(subjects(name, slug))")
+      .select("id, headline, years_experience, private_rate, profiles!teacher_profiles_id_fkey(full_name, avatar_url), teacher_subjects(subjects(name, slug))")
       .eq("status", "approved").order("approved_at", { ascending: false }),
   ]);
   const q = (sp.q ?? "").toLowerCase().trim();

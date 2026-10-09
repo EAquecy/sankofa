@@ -9,7 +9,7 @@ export default async function Page() {
   if (me.role !== "student") redirect("/dashboard");
   const supabase = await createClient();
   const { data: enr } = await supabase.from("enrollments")
-    .select("classroom_id, classrooms(id, title, code, subjects(name), teacher_profiles(id, profiles(full_name)))")
+    .select("classroom_id, classrooms(id, title, code, subjects(name), teacher_profiles(id, profiles!teacher_profiles_id_fkey(full_name)))")
     .eq("student_id", me.id).eq("status", "active");
   const ids = (enr ?? []).map((e) => e.classroom_id);
   const [{ data: sessions }, { data: assignments }, { data: subs }, { data: follows }] = await Promise.all([
@@ -17,7 +17,7 @@ export default async function Page() {
       .in("classroom_id", ids).gt("ends_at", new Date().toISOString()).order("starts_at").limit(8) : Promise.resolve({ data: [] as any[] }),
     ids.length ? supabase.from("assignments").select("id, title, due_at, classroom_id, classrooms(title)").in("classroom_id", ids).order("created_at", { ascending: false }).limit(30) : Promise.resolve({ data: [] as any[] }),
     supabase.from("submissions").select("assignment_id").eq("student_id", me.id),
-    supabase.from("follows").select("teacher_id, teacher_profiles(id, headline, profiles(full_name))").eq("student_id", me.id),
+    supabase.from("follows").select("teacher_id, teacher_profiles(id, headline, profiles!teacher_profiles_id_fkey(full_name))").eq("student_id", me.id),
   ]);
   const done = new Set((subs ?? []).map((s) => s.assignment_id));
   const todo = (assignments ?? []).filter((a: any) => !done.has(a.id));

@@ -9,7 +9,7 @@ export default async function Home() {
   const supabase = await createClient();
   const [{ data: teachers }, { data: subjects }] = await Promise.all([
     supabase.from("teacher_profiles")
-      .select("id, headline, years_experience, private_rate, profiles(full_name, avatar_url), teacher_subjects(subjects(name))")
+      .select("id, headline, years_experience, private_rate, profiles!teacher_profiles_id_fkey(full_name, avatar_url), teacher_subjects(subjects(name))")
       .eq("status", "approved").order("approved_at", { ascending: false }).limit(6),
     supabase.from("subjects").select("name, slug, category").order("id"),
   ]);

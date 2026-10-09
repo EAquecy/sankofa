@@ -9,7 +9,7 @@ export default async function Page() {
   if (!me) redirect("/login");
   const supabase = await createClient();
   const { data: all } = await supabase.from("bookings")
-    .select("*, classrooms(title, subjects(name)), teacher_profiles(profiles(full_name)), booking_participants(student_id, profiles(full_name))")
+    .select("*, classrooms(title, subjects(name)), teacher_profiles(profiles!teacher_profiles_id_fkey(full_name)), booking_participants(student_id, profiles!booking_participants_student_id_fkey(full_name))")
     .order("starts_at", { ascending: false });
   const mine = (all ?? []).filter((b: any) => b.booking_participants.some((p: any) => p.student_id === me.id));
   const open = (all ?? []).filter((b: any) => b.kind === "group" && ["pending", "confirmed"].includes(b.status)

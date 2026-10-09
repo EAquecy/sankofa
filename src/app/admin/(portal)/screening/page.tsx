@@ -9,7 +9,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
   const { status = "pending" } = await searchParams;
   const supabase = await createClient();
   const [{ data: rows }, { data: all }] = await Promise.all([
-    supabase.from("teacher_profiles").select("id, status, headline, created_at, approved_at, profiles(full_name), teacher_subjects(subjects(name)), teacher_screening(submitted_at, ref1_verified, ref2_verified)")
+    supabase.from("teacher_profiles").select("id, status, headline, created_at, approved_at, profiles!teacher_profiles_id_fkey(full_name), teacher_subjects(subjects(name)), teacher_screening(submitted_at, ref1_verified, ref2_verified)")
       .eq("status", status).order("created_at", { ascending: false }),
     supabase.from("teacher_profiles").select("status"),
   ]);
